@@ -1,8 +1,16 @@
-const pane = new Tweakpane.Pane()
+// const pane = new Tweakpane.Pane()
+// const settings = {
+// 	scene: {
+// 		width: windowWidth,
+// 		height: windowHeight,
+// 		fps: 60
+// 	}
+// }
+
 const settings = {
-	scene: {
-		width: windowWidth,
-		height: windowHeight,
-		fps: 60
-	}
+	attractors: [],
+	background: {},
+	grid: {},
+	speed: 5,
+	mode: "sequential"
 }
