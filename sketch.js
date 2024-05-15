@@ -3,9 +3,9 @@
 
 let prevGrid
 function setup() {
-  	createCanvas(windowWidth, windowHeight);
-  	settings.grid = new Grid(256)
-	  setupWindowAttractors(300,410)
+  	createCanvas(1620, 720);
+  	settings.grid = new Grid(192)
+	  setupWindowAttractors(300,310)
 	frameRate(60)
 
 	settings.background = createGraphics(width, height)
@@ -19,9 +19,12 @@ function draw() {
 // createGrid(50)
 	
 	// First show the attractor layers
-	settings.attractors.forEach(a => {
-		image(a.layer, 0, 0)
-	})
+	if(settings.layers) {
+		settings.attractors.forEach(a => {
+			image(a.layer, 0, 0)
+		})
+	}
+	
 	if(settings.mode == "sequential"){
 		
 		
@@ -74,7 +77,7 @@ function draw() {
 			count++
 			
 		} while(!found)
-		settings.grid.mover.display()
+		// settings.grid.mover.display()
 			
 	}
 
@@ -132,14 +135,16 @@ function setupSquareAttractors(mass, radius) {
 }
 
 function saveGridResults(name){
+	if(settings.layers) {
 	
-	settings.attractors.forEach((a, i) => {
-		a.layer.drawingContext.imageSmoothingEnabled = true
-		settings.background.image(a.layer, 0, 0)
-		// a.layer.save(name + "_" + i + ".png")
-	})
+		settings.attractors.forEach((a, i) => {
+			a.layer.drawingContext.imageSmoothingEnabled = true
+			settings.background.image(a.layer, 0, 0)
+			// a.layer.save(name + "_" + i + ".png")
+		})
 
-	settings.attractors.forEach(a => a.layer = createGraphics(width, height))
+		settings.attractors.forEach(a => a.layer = createGraphics(width, height))
+	}
 
 }
 

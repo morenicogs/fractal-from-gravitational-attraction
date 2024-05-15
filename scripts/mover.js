@@ -32,7 +32,7 @@ class Mover {
     	this.acc.set(0, 0);
 		if(this.count == 1250){
 			const noise = p5.Vector.random2D()
-			// noise.mult(5)
+			noise.mult(5)
 			this.acc.add(noise);
 			// this.count = 0
 			// noLoop()

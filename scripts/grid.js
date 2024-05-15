@@ -57,7 +57,7 @@ class Grid {
 
 	splitCells(n) {
 		const oldCells = [...this.cells]
-		// oldCells.sort((a,b) => b.difficulty - a.difficulty)
+		// oldCells.sort((a,b) => a.difficulty - b.difficulty)
 		this.tileSize = this.tileSize/n
 		this.cells = []
 		oldCells.forEach(c => {

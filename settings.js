@@ -11,6 +11,7 @@ const settings = {
 	attractors: [],
 	background: {},
 	grid: {},
-	speed: 5,
-	mode: "sequential"
+	speed: 15,
+	mode: "direct",
+	layers: false
 }

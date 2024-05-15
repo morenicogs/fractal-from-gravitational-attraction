@@ -13,16 +13,17 @@ class Cell {
 		circle(this.position.x, this.position.y, this.size)
 		pop()
 		if(this.filled){
-			this.attractor.layer.push()
+			const layer = settings.layers ? this.attractor.layer : settings.background
+			layer.push()
 			
 			
-			this.attractor.layer.rectMode(RADIUS);
-			this.attractor.layer.noStroke()
-			this.attractor.color.setAlpha(255/4)
-			this.attractor.layer.fill(this.attractor.color)
-			this.attractor.layer.square(this.position.x, this.position.y, this.size/2)
+			layer.rectMode(RADIUS);
+			layer.noStroke()
+			this.attractor.color.setAlpha(255)
+			layer.fill(this.attractor.color)
+			layer.square(this.position.x, this.position.y, this.size/2)
 
-			this.attractor.layer.pop()
+			layer.pop()
 		}
 	}
 
