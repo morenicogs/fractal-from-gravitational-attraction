@@ -11,10 +11,12 @@ const settings = {
 	attractors: [],
 	background: {},
 	grid: {},
-	speed: 5,
+	speed: 15,
+	amount: 200,
 	mode: "sequential",
 	layers: true,
-	flattenLayer: {}
+	flattenLayer: {},
+	minHitCount: 0
 }
 
 

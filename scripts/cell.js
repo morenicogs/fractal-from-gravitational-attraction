@@ -3,7 +3,7 @@ class Cell {
 		this.position = createVector(x, y)
 		this.size = size
 		this.filled = false
-		this.mover = new Mover(this.position.x, this.position.y, 50, 10)
+		this.mover = new Mover(this.position.x, this.position.y, 10, 10)
 		this.attractor = {}
 
 	}

@@ -25,17 +25,26 @@ class Attractor {
 		const force = createVector(this.position.x - mover.position.x, this.position.y - mover.position.y)
 		const distance = Math.hypot(this.position.x - mover.position.x, this.position.y - mover.position.y)
 		const threshold = (this.radius)
+		const min = this.radius
+		const max = Math.hypot(width/2, height/2)
+		const adjustedDistance = Math.min(Math.max(distance, min), max)
+		const strength = this.G * (this.mass * mover.mass) / (Math.pow(adjustedDistance,2))
+		force.setMag(strength)
 
 		if(distance >= threshold) {
-			const min = this.radius + mover.radius
-			const max = height
-			const adjustedDistance = Math.min(Math.max(distance, min), max)
-			const strength = this.G * (this.mass * mover.mass) / (Math.pow(adjustedDistance,2))
-			force.setMag(strength)
+			
 			mover.applyForce(force)
+			mover.hitcount++
 			return true
 		} else {
+			if(mover.hitcount <= settings.minHitCount) {
+				mover.applyForce(force)
+				mover.hitcount++
+				return true
+			} else {
 			return false
+
+			}
 		}
 	}
 }

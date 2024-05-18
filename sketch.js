@@ -4,8 +4,8 @@
 let prevGrid
 function setup() {
   	createCanvas(windowWidth, windowHeight);
-  	settings.grid = new Grid(32)
-	  setupWindowAttractors(25,300)
+  	settings.grid = new Grid(64)
+	  setupWindowAttractors(10,250)
 	frameRate(60)
 
 	settings.background = createGraphics(width, height)
@@ -203,7 +203,7 @@ function setupWindowAttractors(mass, radius) {
 	settings.attractors.push(new Attractor(p3.x, p3.y, mass, 20 , "#D300C5"))
 	settings.attractors.push(new Attractor(p2.x, p2.y, mass*1.01, 20 , "#FF0069"))
 
-	settings.attractors.push(new Attractor(p1.x, p1.y, mass*0.99, 20 , "#FFD600"))
+	settings.attractors.push(new Attractor(p1.x, p1.y, mass*0.98, 20 , "#FFD600"))
 
-	settings.attractors.push(new Attractor(width/2, height/2, mass*1.1, 20 , "#FF7A00"))
+	settings.attractors.push(new Attractor(width/2, height/2, mass, 20 , "#FF7A00"))
 }

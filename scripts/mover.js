@@ -4,6 +4,7 @@ class Mover {
 		this.mass = m
 		this.radius = r
 		this.count = 0
+		this.hitcount = 0
 		this.vel = createVector(0,0)
 		this.acc = createVector(0,0)
 		this.G = 9.81

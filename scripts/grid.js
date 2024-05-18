@@ -10,7 +10,7 @@ class Grid {
 		this.activeCells = []
 		this.activeMovers = []
 
-		this.amountActive = 15
+		this.amountActive = settings.amount
 		for (let i = 0; i < this.amountActive; i++) {
 			this.newActiveCell()
 			// this.amountActive++
@@ -104,7 +104,7 @@ class Grid {
 		})
 
 		this.filledCellsCount = 0
-		this.amountActive = this.cells.length < 150 ? this.cells.length : 150
+		// this.amountActive = this.cells.length < 150 ? this.cells.length : 150
 
 		for (let i = 0; i < this.amountActive; i++) {
 			this.newActiveCell()
