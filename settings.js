@@ -11,7 +11,21 @@ const settings = {
 	attractors: [],
 	background: {},
 	grid: {},
-	speed: 15,
-	mode: "direct",
-	layers: false
+	speed: 5,
+	mode: "sequential",
+	layers: true,
+	flattenLayer: {}
+}
+
+
+function removeItemFromArray(item, array) {
+	const itemIndex = array.indexOf(item)
+	array.splice(itemIndex, 1)
+}
+
+function down() {
+	noLoop()
+	settings.attractors.forEach((a, i) => {
+		a.layer.save(name + "_" + i + ".png")
+	})
 }

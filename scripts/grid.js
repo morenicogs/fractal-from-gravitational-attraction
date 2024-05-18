@@ -4,7 +4,29 @@ class Grid {
 		this.cells = []
 		this.createGrid(tileSize)
 		this.filledCellsCount = 0
-		this.newActiveCell()
+		this.countMax = 0
+		this.countMin = Infinity
+
+		this.activeCells = []
+		this.activeMovers = []
+
+		this.amountActive = 15
+		for (let i = 0; i < this.amountActive; i++) {
+			this.newActiveCell()
+			// this.amountActive++
+		}
+		// this.newActiveCell()
+		// this.newActiveCell()
+		// this.newActiveCell()
+		// this.newActiveCell()
+		// this.newActiveCell()
+		// this.newActiveCell()
+		// this.newActiveCell()
+		// this.newActiveCell()
+		// this.newActiveCell()
+		// this.newActiveCell()
+		// this.newActiveCell()
+
 
 	}
 
@@ -24,33 +46,49 @@ class Grid {
 			}
 			
 		}
+
+		this.cols = cols
+		this.rows = rows
 	}
 
 	displayCells(){
 		this.cells.forEach( c => c.display())
 	}
 
-	fillActiveCell(attractor) {
-		this.activeCell.attractor = attractor
-		this.activeCell.filled = true
-		this.activeCell.difficulty = Math.round(2*this.mover.count/100)
-		this.activeCell.display()
-		this.activeCell = {}
+	fillActiveCell(attractor, cell) {
+		cell.attractor = attractor
+		cell.filled = true
+		cell.difficulty = cell.mover.count
+
+		cell.display()
+		
+		// this.activeCell = {}
 		this.filledCellsCount++
+		
+		// TODO Refactor to array
+		removeItemFromArray(cell, this.activeCells)
 	}
 
 	newActiveCell(){
-		if(this.filledCellsCount < this.cells.length) {
-			this.activeCell = this.cells[this.filledCellsCount]
-			const moverR = Math.min(Math.max(this.tileSize*0.25, 5), 50)
-			this.mover = new Mover(this.activeCell.position.x, this.activeCell.position.y, 75, 10)
+		if(this.filledCellsCount + this.activeCells.length < this.cells.length) {
+			// this.activeCell = this.cells[this.filledCellsCount]
+			// this.mover = new Mover(this.activeCell.position.x, this.activeCell.position.y, 50, 10)
+
+			// TODO Refractor to array
+			const newActiveCell = this.cells[this.filledCellsCount+this.activeCells.length]
+			// const newActiveMover = new Mover(newActiveCell.position.x, newActiveCell.position.y, 15, 10)
+			this.activeCells.push(newActiveCell)
+			// this.activeMovers.push(newActiveMover)
+			
+
 		} else {
-			saveGridResults(this.tileSize)
-			// this.tileSize = this.tileSize/2
-			// this.filledCellsCount = 0
-			// settings.speed += 2
-			// this.newActiveCell()
-			this.splitCells(2)
+			if(this.activeCells.length == 0) {
+				saveGridResults(this.tileSize)
+				console.log("countMax: ", this.countMax)
+				console.log("countMin: ", this.countMin)
+				this.splitCells(2)
+			}
+			
 		}
 		
 	}
@@ -66,7 +104,12 @@ class Grid {
 		})
 
 		this.filledCellsCount = 0
-		this.newActiveCell()
+		this.amountActive = this.cells.length < 150 ? this.cells.length : 150
+
+		for (let i = 0; i < this.amountActive; i++) {
+			this.newActiveCell()
+			
+		}
 
 	}
 }

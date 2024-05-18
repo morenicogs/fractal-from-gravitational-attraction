@@ -3,6 +3,7 @@ class Cell {
 		this.position = createVector(x, y)
 		this.size = size
 		this.filled = false
+		this.mover = new Mover(this.position.x, this.position.y, 50, 10)
 		this.attractor = {}
 
 	}
@@ -13,17 +14,17 @@ class Cell {
 		circle(this.position.x, this.position.y, this.size)
 		pop()
 		if(this.filled){
-			const layer = settings.layers ? this.attractor.layer : settings.background
-			layer.push()
+			const layer = settings.layers ? this.attractor.layer : settings.flattenLayer
 			
-			
-			layer.rectMode(RADIUS);
-			layer.noStroke()
-			this.attractor.color.setAlpha(255)
-			layer.fill(this.attractor.color)
-			layer.square(this.position.x, this.position.y, this.size/2)
-
-			layer.pop()
+			if(settings.layers == true){
+				this.attractor.layer.push()
+				this.attractor.layer.rectMode(RADIUS);
+				this.attractor.layer.noStroke()
+				this.attractor.color.setAlpha(255)
+				this.attractor.layer.fill(this.attractor.color)
+				this.attractor.layer.square(this.position.x, this.position.y, this.size/2)
+				this.attractor.layer.pop()
+			}
 		}
 	}
 
@@ -35,6 +36,7 @@ class Cell {
 				const x = (c * newTileSize) + this.position.x
 				const y = (r * newTileSize) + this.position.y
 				const cell = new Cell(x - (newTileSize/2), y - (newTileSize/2), newTileSize)
+				cell.difficulty = this.difficulty
 				newCells.push(cell)
 			}
 			
