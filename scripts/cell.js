@@ -3,7 +3,7 @@ class Cell {
 		this.position = createVector(x, y)
 		this.size = size
 		this.filled = false
-		this.mover = new Mover(this.position.x, this.position.y, 10, 10)
+		this.mover = new Mover(this.position.x, this.position.y, settings.mover.mass, settings.mover.radius)
 		this.attractor = {}
 
 	}
@@ -23,6 +23,14 @@ class Cell {
 				this.attractor.color.setAlpha(255)
 				this.attractor.layer.fill(this.attractor.color)
 				this.attractor.layer.square(this.position.x, this.position.y, this.size/2)
+				
+				// this.attractor.color.setAlpha(255/4)
+				// this.attractor.layer.fill(this.attractor.color)
+				// this.attractor.layer.square(this.position.x, this.position.y, this.size/2 + this.size/6)
+				// this.attractor.color.setAlpha(255/2)
+				// this.attractor.layer.fill(this.attractor.color)
+				// this.attractor.layer.square(this.position.x, this.position.y, this.size/2 + this.size/8)
+
 				this.attractor.layer.pop()
 			}
 		}

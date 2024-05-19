@@ -4,13 +4,15 @@
 let prevGrid
 function setup() {
   	createCanvas(windowWidth, windowHeight);
-  	settings.grid = new Grid(64)
-	  setupWindowAttractors(10,250)
+  	settings.grid = new Grid(settings.size)
+	  setupTriangleAttractors(25,150)
 	frameRate(60)
 
 	settings.background = createGraphics(width, height)
 	if(!settings.layers) settings.flattenLayer = createGraphics(width, height)
 	settings.background.background(40)
+
+	createPane()
 }
 
 function draw() {
@@ -133,9 +135,11 @@ function setupTriangleAttractors(mass, radius) {
 		y: height/2 + radius * Math.sin(Math.PI * 5/6)
 	}
 
-	settings.attractors.push(new Attractor(p1.x, p1.y, mass, 50, "#FF520E"))
-	settings.attractors.push(new Attractor(p2.x, p2.y, mass, 50, "#3AB6FC"))
-	settings.attractors.push(new Attractor(p3.x, p3.y, mass, 50, "#FF288C"))
+	settings.attractors.push(new Attractor(p1.x, p1.y, mass, 40, "#D300C5"))
+	settings.attractors.push(new Attractor(p2.x, p2.y, mass, 40, "#FF0069"))
+	settings.attractors.push(new Attractor(p3.x, p3.y, mass, 40, "#7638FA"))
+	// settings.attractors.push(new Attractor(width/2, height/2, mass/2, 20 , "#FF7A00"))
+
 
 
 }
@@ -206,4 +210,89 @@ function setupWindowAttractors(mass, radius) {
 	settings.attractors.push(new Attractor(p1.x, p1.y, mass*0.98, 20 , "#FFD600"))
 
 	settings.attractors.push(new Attractor(width/2, height/2, mass, 20 , "#FF7A00"))
+}
+
+function setupSpecialAttractors(mass, radius) {
+	const ratio =  height/width
+
+	const pointM = {
+		x: width/2,
+		y: height/2,
+		color: color("#FFD600"),
+		mass: mass*1.5,
+		size: 20
+	}
+	
+	const point1 = {
+		x: width/2,
+		y: height/4,
+		color: color("#FF7A00"),
+		mass: mass * 3,
+		size: 20
+	}
+	const point2 = {
+		x: 3*width/4,
+		y: height/2,
+		color: color("#FF0069"),
+		mass: mass,
+		size: 20
+	}
+	const point3 = {
+		x: width/2,
+		y: 3*height/4,
+		color: color("#D300C5"),
+		mass: mass * 3,
+		size: 20
+	}
+	const point4 = {
+		x: width/4,
+		y: height/2,
+		color: color("#7638FA"),
+		mass: mass,
+		size: 20
+	}
+	colorMode(HSB)
+	const point1M2 = {
+		x: (point1.x + point2.x + pointM.x)/3,
+		y: (point1.y + point2.y + pointM.y)/3,
+		color: lerpColor(point1.color, point2.color, 0.5),
+		mass: (point1.mass + point2.mass + pointM.mass)/6,
+		size: 15
+	}
+	const point2M3 = {
+		x: (point2.x + point3.x + pointM.x)/3,
+		y: (point2.y + point3.y + pointM.y)/3,
+		color: lerpColor(point2.color, point3.color, 0.5),
+		mass: (point2.mass + point3.mass+ pointM.mass)/6,
+		size: 15
+	}
+	const point3M4 = {
+		x: (point3.x + point4.x + pointM.x)/3,
+		y: (point3.y + point4.y + pointM.y)/3,
+		color: lerpColor(point3.color, point4.color, 0.5),
+		mass: (point3.mass + point4.mass+ pointM.mass)/6,
+		size: 15
+	}
+	const point4M1 = {
+		x: (point1.x + point4.x + pointM.x)/3,
+		y: (point1.y + point4.y + pointM.y)/3,
+		color: lerpColor(point1.color, point4.color, 0.5),
+		mass: (point1.mass + point4.mass+ pointM.mass)/6,
+		size: 15
+	}
+
+	
+
+
+	settings.attractors.push(new Attractor(point1.x, point1.y, point1.mass, point1.size , point1.color.toString()))
+
+	settings.attractors.push(new Attractor(point2.x, point2.y, point2.mass, point2.size , point2.color.toString()))
+	settings.attractors.push(new Attractor(point3.x, point3.y, point3.mass, point3.size , point3.color.toString()))
+	settings.attractors.push(new Attractor(point4.x, point4.y, point4.mass, point4.size ,point4.color.toString()))
+
+	// settings.attractors.push(new Attractor(pointM.x, pointM.y, pointM.mass, pointM.size ,pointM.color.toString()))
+	settings.attractors.push(new Attractor(point1M2.x, point1M2.y, point1M2.mass, point1M2.size ,point1M2.color.toString()))
+	settings.attractors.push(new Attractor(point2M3.x, point2M3.y, point2M3.mass, point2M3.size ,point2M3.color.toString()))
+	settings.attractors.push(new Attractor(point3M4.x, point3M4.y, point3M4.mass, point3M4.size ,point3M4.color.toString()))
+	settings.attractors.push(new Attractor(point4M1.x, point4M1.y, point4M1.mass, point4M1.size ,point4M1.color.toString()))
 }

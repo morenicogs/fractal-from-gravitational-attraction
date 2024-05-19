@@ -84,8 +84,6 @@ class Grid {
 		} else {
 			if(this.activeCells.length == 0) {
 				saveGridResults(this.tileSize)
-				console.log("countMax: ", this.countMax)
-				console.log("countMin: ", this.countMin)
 				this.splitCells(2)
 			}
 			

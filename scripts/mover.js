@@ -7,7 +7,7 @@ class Mover {
 		this.hitcount = 0
 		this.vel = createVector(0,0)
 		this.acc = createVector(0,0)
-		this.G = 9.81
+		this.G = 9.81/2
 
 		this.applyPendulumForce()
 
@@ -35,29 +35,50 @@ class Mover {
 	}
 
 	update(){
+		// this.applyPendulumForce()
+
+		
 		this.vel.add(this.acc);
+		
+
    		this.position.add(this.vel);
     	this.acc.set(0, 0);
-		if(this.count == 1250){
-			const noise = p5.Vector.random2D()
-			noise.mult(5)
-			this.position.add(noise);
-			this.applyPendulumForce()
+		// if(this.count == 1250){
+		// 	const noise = p5.Vector.random2D()
+		// 	noise.mult(5)
+		// 	this.position.add(noise);
+		// 	this.applyPendulumForce()
 
-			// this.count = 0
-			// noLoop()
-		}
+		// 	// this.count = 0
+		// 	// noLoop()
+		// }
 		
-		if(this.count > 6000) {
+		if(this.count >= 5000) {
+			if(this.count == 7500) {
+				const closest = this.closestAttractor()
+				const dist = Math.hypot(closest.position.x-this.position.x, closest.position.y - this.position.y)
+				const newPos = createVector(closest.position.x-this.position.x, closest.position.y - this.position.y)
+				newPos.setMag(dist/2)
+				// console.log(this.position.x, this.position.y)
+				this.position.set(newPos.x + this.position.x, newPos.y + this.position.y)
+				// console.log(this.position.x, this.position.y)
+				// console.log("7500")
+				this.count = 0
+			}
+			if(this.count == 5000) {
+				const closest = this.closestAttractor()
+				const dist = Math.hypot(closest.position.x-this.position.x, closest.position.y - this.position.y)
+				const newPos = createVector(closest.position.x-this.position.x, closest.position.y - this.position.y)
+				newPos.setMag(dist/2)
+				this.position.set(newPos.x + this.position.x, newPos.y + this.position.y)
+			}
 			// this.vel.set(0,0)
 			// this.acc.set(3,3)
-			const noise = p5.Vector.random2D()
 			
-			this.position.add(noise);
+			// this.position.add(noise);
 			// this.position.add(noise);
 			// this.position.add(noise);
 			// this.applyPendulumForce()
-			this.count = 5000
 
 			// console.log("2500 error")
 		}
@@ -80,15 +101,14 @@ class Mover {
 	}
 
 	applyForce(force) {
-		this.applyPendulumForce()
 		const accForce = p5.Vector.div(force, this.mass)
 		this.acc.add(accForce)
 	}
 
-	closestAttractor(attractors) {
-		let dist = 5000
+	closestAttractor() {
+		let dist = Infinity
 		let closestAtt
-		attractors.forEach(a => {
+		settings.attractors.forEach(a => {
 			const distAtt = Math.hypot(this.position.x - a.position.x, this.position.y - a.position.y)
 			if(distAtt < dist) {
 				dist = distAtt
@@ -103,7 +123,7 @@ class Mover {
 		const force  = createVector(width/2 - this.position.x, height/2 - this.position.y)
 		const lengthString = Math.hypot(width/2, height/2)
 		const dist = Math.min(Math.hypot(width/2 - this.position.x, height/2 - this.position.y), lengthString)
-		const strength = Math.round(Math.asin(dist/lengthString) * this.G * this.mass / 10000)*10000
+		const strength = Math.asin(dist/lengthString) * this.G * this.mass * 1/dist
 		// console.log(strength)
 		// console.log(force)
 		force.setMag(strength)
